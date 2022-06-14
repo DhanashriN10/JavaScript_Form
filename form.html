@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Basic Input types</title>
+	<link rel="stylesheet" href="form.css">
+</head>
+<body>
+  <form>
+  	<header class="headerContainer"><h1>HTML 5Form Input Fields</h1></header>
+  	<div>
+  		<label for="text">Text Input For Name:</label>
+  		<input type="text" id="text" name="text">
+  		<error-output class="text-error" for="text"></error-output>
+  	</div>
+  	<div>
+  		<label for="pwd">Password Input Type</label>
+  		<input type="email" id="email" name="email">
+  	</div>
+  	<div>
+  		<label for="url">url Input Type</label>
+  		<input type="url" id="url" name="url">
+  	</div>
+  	<div>
+  		<label for="number">Number Input Type</label>
+  		<input type="tel" id="tel" name="tel">
+  	</div>
+  	<div>
+  		<label for="search">Search Input Type</label>
+  		<input type="search" id="search" name="search">
+  	</div>
+  	<div class="nativeDateTimePicker">
+  		<label for="party">Choose a Date and Time</label>
+  		<input type="datatime-local" id="party" name="bday">
+  		<span class="validity"></span>
+  	</div>
+  	<div>
+  		<label for="salary">Choose Your Salary</label>
+  		<input type="range" name="salary" id="salary" min="300000" max="500000" step="100" value="400000">
+  		<output class="salary-output" for="salary">400000</output>
+  	</div>
+  	<div>
+  		<button>Submit</button>
+  		<button>Reset</button>
+  	</div>
+
+
+  </form>
+  <script>
+
+  	//UC 1:- As a User need to enter a valid First Name
+  	const text=document.querySelector('#text');
+  	const textError=document.querySelector('.text-error');
+  	text.addEventListener('input',function(){
+  		let nameRegex=RegExp('^[A-Z]{1}[a-zA-Z]{2,}$');
+  		if (nameRegex.text(text.value))
+  			textError.textContent="";
+  		else
+  			textError.textContent="Name is Incorrect";
+  	});
+
+  	const salary=document.querySelector('#salary');
+  	const output=document.querySelector('.salary-output');
+  	output.textContent=salary.value;
+  	salary.addEventListener('input',function(){
+  				output.textContent=salary.value;
+  	});
+
+
+//UC 2:- As a User need to enter a valid email - E.g. abc.xyz@bl.co.in 
+const email = document.querySelector('#email');
+const emailError = document.querySelector('.email-error');
+const EMAIL_REGEX = RegExp('^[a-zA-Z]+[a-zA-Z0-9]*[- . + _]?[a-zA-Z0-9]+[@]{1}[a-z0-9]+[.]{1}[a-z]+[.]?[a-z]+$');
+email.addEventListener('input', function() {
+    if (EMAIL_REGEX.test(email.value)) 
+        emailError.textContent = "";
+    else 
+        emailError.textContent = "Please Enter Valid Email Id!";
+    
+});
+
+//UC 3:- As a User need to follow pre-defined Mobile Format - E.g. 91 9919819801
+
+const telephone = document.querySelector('#tel');
+const telephoneError = document.querySelector('.tel-error');
+const PHONE_REGEX = RegExp('^[0-9]{1,2}\\s{1}[7-9]{1}[0-9]{9}$');
+telephone.addEventListener('input', function() {
+    if (PHONE_REGEX.test(telephone.value)) 
+        telephoneError.textContent = "";
+    else 
+        telephoneError.textContent = "Telephone Number Is Incorrect";
+    
+});
+
+//UC 4:- Rule1 – minimum 8 Characters Rule2 – Should have at least 1 Upper Case Rule3 – Should have at least 1 numeric number in the password Rule4 – Has exactly 1 Special
+
+const password = document.querySelector('#pwd');
+const passwordError = document.querySelector('.pwd-error');
+const PASSWORD_REGEX = RegExp('^(?=.*[A-Z])(?=.*[0-9])(?=.{8,}$)[a-zA-Z0-9]*[@#$%^&-+=()][a-zA-Z0-9]*$')
+password.addEventListener('input', function() {
+    if (PASSWORD_REGEX.test(password.value)) {
+        passwordError.textContent = "";
+    } else {
+        passwordError.textContent = "Password Is Incorrect! "
+    }
+});
+
+  </script>
+</body>
+</html>
